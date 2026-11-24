@@ -48,20 +48,13 @@
         }
 
         .hero {
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #1e3a8a 100%);
-            color: white; 
-            padding: 3rem 1.5rem 3.5rem 1.5rem; 
-            text-align: center;
+            width: 100%;
         }
-        .hero-title { 
-            font-size: 2.25rem; 
-            font-weight: 800; 
-            letter-spacing: -0.025em; 
-            background: linear-gradient(to right, #ffffff, #93c5fd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .hero img {
+            display: block;
+            width: 100%;
+            height: auto;
         }
-        .hero-subtitle { margin-top: 0.5rem; color: #cbd5e1; font-size: 1.05rem; }
 
         nav {
             background: rgba(255, 255, 255, 0.9); 
@@ -232,9 +225,6 @@
         .back-link:hover { text-decoration: underline; }
 
         @media (max-width: 768px) {
-            .hero { padding: 2.5rem 1rem 3rem 1rem; }
-            .hero-title { font-size: 1.85rem; }
-            .hero-subtitle { font-size: 0.95rem; margin-bottom: 1.5rem; }
             .container { padding: 1.5rem 1rem; }
             .form-card { padding: 1.25rem; }
             .table-card { overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -255,8 +245,7 @@
 <body>
 
 <header class="hero">
-    <h1 class="hero-title">Form Peminjaman Ruangan</h1>
-    <p class="hero-subtitle">Silakan isi formulir di bawah ini untuk mengajukan peminjaman ruangan</p>
+    <img src="{{ asset('peminjaman.jpeg') }}" alt="Form Peminjaman Ruangan">
 </header>
 
 <nav>

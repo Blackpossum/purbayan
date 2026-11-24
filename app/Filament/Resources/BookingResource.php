@@ -86,6 +86,11 @@ class BookingResource extends Resource
                 ->label('Catatan Admin')
                 ->columnSpanFull()
                 ->visible(fn ($record) => $record !== null),
+            Forms\Components\TextInput::make('approved_by')
+                ->label('Disetujui Oleh')
+                ->maxLength(255)
+                ->visible(fn ($record) => $record !== null)
+                ->helperText('Kosongkan untuk mengisi otomatis dengan nama admin yang menyetujui.'),
         ]);
     }
 
@@ -130,6 +135,10 @@ class BookingResource extends Resource
                     ->wrap()
                     ->limit(60)
                     ->tooltip(fn (Booking $record): ?string => $record->admin_note),
+                Tables\Columns\TextColumn::make('approved_by')
+                    ->label('Disetujui Oleh')
+                    ->placeholder('-')
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('created_at')->label('Dikirim')->dateTime('d M Y H:i')->sortable(),
             ])
             ->defaultSort('created_at', 'desc')

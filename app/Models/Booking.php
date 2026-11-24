@@ -10,7 +10,7 @@ class Booking extends Model
 {
     protected $fillable = [
         'room_id', 'user_id', 'renter_name', 'renter_email', 'renter_phone', 'department',
-        'date', 'start_time', 'end_time', 'purpose', 'status', 'rejection_reason', 'admin_note',
+        'date', 'start_time', 'end_time', 'purpose', 'status', 'rejection_reason', 'admin_note', 'approved_by',
         'check_in_code', 'checked_in_at', 'permit_letter_path', 'recurring_token',
     ];
 
@@ -59,6 +59,12 @@ class Booking extends Model
                         ->info()
                         ->sendToDatabase($user);
                 }
+            }
+        });
+
+        static::updating(function ($booking) {
+            if ($booking->isDirty('status') && $booking->status === 'approved' && blank($booking->approved_by)) {
+                $booking->approved_by = auth()->user()?->name ?? 'Admin';
             }
         });
 
@@ -111,9 +117,13 @@ class Booking extends Model
                     $color = $isApproved ? 'success' : 'danger';
                     $title = "Peminjaman Ruangan {$statusText}";
                     $timeStr = substr($booking->start_time, 0, 5) . ' - ' . substr($booking->end_time, 0, 5);
+                    $approver = $booking->approved_by;
 
                     if ($isApproved) {
                         $body = "Permohonan peminjaman ruangan {$booking->room->name} Anda untuk tanggal " . $booking->date->format('d M Y') . " ({$timeStr} WIB) telah disetujui.";
+                        if ($approver) {
+                            $body .= "\n\nDisetujui oleh: {$approver}";
+                        }
                     } else {
                         $reason = $booking->getAttribute('rejection_reason');
                         $body = "Permohonan peminjaman ruangan {$booking->room->name} Anda untuk tanggal " . $booking->date->format('d M Y') . " telah ditolak.";
@@ -146,7 +156,8 @@ class Booking extends Model
                         . "Bidang/Tim: " . ($booking->department ?? '-') . "\n"
                         . "Ruangan: {$booking->room->name}\n"
                         . "Tanggal: " . $booking->date->format('d M Y') . "\n"
-                        . "Waktu: " . substr($booking->start_time, 0, 5) . " - " . substr($booking->end_time, 0, 5) . " WIB\n\n"
+                        . "Waktu: " . substr($booking->start_time, 0, 5) . " - " . substr($booking->end_time, 0, 5) . " WIB\n"
+                        . "Disetujui oleh: " . ($booking->approved_by ?? 'Admin') . "\n\n"
                         . "Terima kasih.";
                 } else {
                     // Ambil alasan dari attribute array agar pasti terbaca nilai terbarunya

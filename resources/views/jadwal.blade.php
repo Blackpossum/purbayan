@@ -49,13 +49,13 @@
         }
 
         .hero {
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #1e3a8a 100%);
-            color: white;
-            padding: 3.5rem 1.5rem;
-            text-align: center;
+            width: 100%;
         }
-        .hero-title { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 0.5rem; }
-        .hero-subtitle { font-size: 1.1rem; color: #93c5fd; max-width: 600px; margin: 0 auto; }
+        .hero img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
 
         nav { 
             background: var(--card); 
@@ -467,9 +467,6 @@
         }
 
         @media (max-width: 768px) {
-            .hero { padding: 2.5rem 1rem 3rem 1rem; }
-            .hero-title { font-size: 1.85rem; }
-            .hero-subtitle { font-size: 0.95rem; margin-bottom: 1.5rem; }
             .container { padding: 1.5rem 1rem; }
             .rooms-grid { grid-template-columns: 1fr; gap: 1.25rem; }
             .table-card { overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -484,8 +481,7 @@
 <body>
 
 <header class="hero">
-    <h1 class="hero-title">Jadwal Peminjaman Disetujui</h1>
-    <p class="hero-subtitle">Pantau seluruh jadwal peminjaman ruangan yang telah disetujui secara real-time</p>
+    <img src="{{ asset('statusdankalender.jpeg') }}" alt="Jadwal Peminjaman Disetujui - Status dan Kalender">
 </header>
 
 <nav>

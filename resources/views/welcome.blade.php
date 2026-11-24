@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -46,47 +46,15 @@
         }
 
         .hero {
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #1e3a8a 100%);
-            color: white; 
-            padding: 4rem 1.5rem 5rem 1.5rem; 
-            text-align: center;
-            position: relative;
+            width: 100%;
             overflow: hidden;
+            margin: 0;
+            padding: 0;
         }
-        .hero-title { 
-            font-size: 2.75rem; 
-            font-weight: 800; 
-            letter-spacing: -0.025em; 
-            line-height: 1.2;
-            background: linear-gradient(to right, #ffffff, #93c5fd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .hero-subtitle { 
-            margin: 1rem auto 2rem auto; 
-            max-width: 600px;
-            font-size: 1.15rem; 
-            color: #cbd5e1; 
-            font-weight: 400;
-        }
-        .hero-clock-wrap {
-            margin-bottom: 1.5rem;
-        }
-        .hero-clock {
-            font-size: 3.5rem;
-            font-weight: 800;
-            font-variant-numeric: tabular-nums;
-            letter-spacing: 0.05em;
-            color: #ffffff;
-            text-shadow: 0 2px 20px rgba(147, 197, 253, 0.4);
-            line-height: 1;
-        }
-        .hero-date {
-            margin-top: 0.4rem;
-            font-size: 1rem;
-            color: #93c5fd;
-            font-weight: 500;
-            letter-spacing: 0.02em;
+        .hero img {
+            display: block;
+            width: 100%;
+            height: auto;
         }
 
         nav {
@@ -476,10 +444,6 @@
         }
 
         @media (max-width: 768px) {
-            .hero { padding: 2.5rem 1rem 3rem 1rem; }
-            .hero-clock { font-size: 2.25rem; }
-            .hero-title { font-size: 1.85rem; }
-            .hero-subtitle { font-size: 0.95rem; margin-bottom: 1.5rem; }
             .container { padding: 1.5rem 1rem; }
             .rooms-grid { grid-template-columns: 1fr; gap: 1.25rem; }
             .table-card { overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -494,12 +458,7 @@
 <body>
 
 <header class="hero">
-    <div class="hero-clock-wrap">
-        <div id="hero-clock" class="hero-clock">00:00:00</div>
-        <div id="hero-date" class="hero-date"></div>
-    </div>
-    <h1 class="hero-title">Sistem Peminjaman Ruangan</h1>
-    <p class="hero-subtitle">Platform peminjaman ruangan yang transparan, mudah, dan terintegrasi secara real-time</p>
+    <img src="{{ asset('headernew.jpeg') }}" alt="Sistem Peminjaman Ruangan Paroki Purbayan Surakarta">
 </header>
 
 <nav>
@@ -667,22 +626,6 @@
     })();
 </script>
 <script>
-    // Real-time clock
-    (function() {
-        const DAYS = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
-        const MONTHS = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-        function pad(n) { return String(n).padStart(2, '0'); }
-        function tick() {
-            const now = new Date();
-            document.getElementById('hero-clock').textContent =
-                pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
-            document.getElementById('hero-date').textContent =
-                DAYS[now.getDay()] + ', ' + now.getDate() + ' ' + MONTHS[now.getMonth()] + ' ' + now.getFullYear();
-        }
-        tick();
-        setInterval(tick, 1000);
-    })();
-
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('/sw.js')
@@ -694,4 +637,3 @@
 
 </body>
 </html>
-
